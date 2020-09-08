@@ -1,4 +1,7 @@
 import os
+import django_heroku
+import dj_database_url
+from decouple import config
 """
 Django settings for dentist project.
 
@@ -49,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'dentist.urls'
@@ -123,9 +127,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static',),
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
 # email settings
 EMAIL_HOST = 'stmp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'wambuakenitious@gmail.com'
 EMAIL_HOST_PASSWORD = 'shpk5012'
 EMAIL_USE_TLS = True
+
+django_heroku.settings(locals())
